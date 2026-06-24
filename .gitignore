@@ -4,6 +4,7 @@
 
 # Screenshot staging area (final images live in images/ and ARE committed)
 screenshots/
+.playwright-mcp/
 
 # macOS
 .DS_Store

@@ -35,26 +35,41 @@
 
 ## Screenshots
 
-- Capture all product screenshots at a **standardized browser window size of 1366×911**, which yields a clean **1366×768** image (standard HD), so the docs stay visually consistent. Resize with `mcp__claude-in-chrome__resize_window` before capturing.
-- Always use the **test/demo account `johannes@kepler.ai`** (our shared Kepler test user) — never a personal account, since public docs must not show real user data
-- **Sidebar:** collapse the app sidebar when it's a distracting chat list that adds nothing to the shot; keep it open when it shows relevant content (e.g. sources). Move the cursor out of frame before capturing
-- Store final images under `images/` (committed) and embed them with Mintlify `<Frame>` blocks. `screenshots/` is a git-ignored staging area
+Product screenshots are captured with the **Playwright MCP server** running its **own browser** — this gives clean, lossless, retina images with **no automation border, no browser chrome, and no cursor**. (Don't use the `claude-in-chrome` MCP for final shots: it returns lossy JPEG, and screen-capture fallbacks add Chrome's orange "Claude is using the browser" border.)
 
-**Why 1366×911:** the capture is the page viewport, not the whole window. Two factors set the window size:
-  1. **Top chrome ≈ 143px** — the tab bar, address bar, and the "Claude is using the browser" automation banner sit above the viewport. So window height = target image height + 143 (→ 768 + 143 = 911).
-  2. **Tool downscale cap ≈ 1.23M px** — `mcp__claude-in-chrome__computer` returns the image 1:1 only while width × height stays under ~1,228,800px; above that it silently downscales to fit the cap (e.g. a 1440×900 viewport comes back as 1402×876 at a *variable* scale, breaking consistency). 1366×768 = 1.05M px sits safely under the cap, so captures are always full-resolution and exactly 1366 wide.
+**Standard:** **1400×1050 viewport (4:3) at `deviceScaleFactor: 2` → a 2800×2100 PNG.** 4:3 gives comfortable vertical headroom; 2× is true retina.
 
-### Saving Claude-in-Chrome screenshots to disk
+- Always use the **test/demo account `johannes@kepler.ai`** (our shared Kepler test user) — never a personal account, since public docs must not show real user data. Login persists in the Playwright profile.
+- **Sidebar:** collapse the app sidebar when it's a distracting chat list that adds nothing to the shot; keep it open when it shows relevant content (e.g. sources). Playwright renders no cursor, so nothing to move out of frame.
+- Store final images under `images/` as **`.png`** (committed) and embed them with Mintlify `<Frame>` blocks. `screenshots/` is the git-ignored staging area (also the Playwright `--output-dir`).
 
-The `mcp__claude-in-chrome__computer` tool renders screenshots inline but does **not** write a file — even with `save_to_disk: true`, no path is produced. To get the bytes onto disk, use the committed **`save-screenshot` skill** at `.claude/skills/save-screenshot/`:
+### Playwright MCP setup
 
-1. Take the screenshot with `mcp__claude-in-chrome__computer` and note its `ID: ss_…`
-2. Run the extractor (it pulls the image from this session's transcript JSONL):
-   ```bash
-   bash .claude/skills/save-screenshot/scripts/save-screenshot.sh \
-     --session <session-id> --index last --out images/<name>.jpg
-   ```
-   Find `<session-id>` by grepping `~/.claude/projects/-Users-sara-mintlify-docs/` for the `ss_…` ID.
-3. Read the saved file back to confirm it's the right frame, then embed it.
+Registered in local config (`~/.claude.json`, this project) — **own browser, not `--extension`** (extension mode blocks CDP emulation, so it can't force retina, and `setViewportSize` there pins DPR to 1):
 
-The skill is vendored from github.com/BobMakhlin/claude-in-chrome-save-screenshot (reviewed: no network calls, no exfiltration, local-only).
+```bash
+claude mcp add playwright -- npx @playwright/mcp@latest \
+  --config /Users/sara/mintlify-docs/.claude/playwright-config.json \
+  --user-data-dir /Users/sara/.cache/playwright-kepler-profile \
+  --output-dir /Users/sara/mintlify-docs/screenshots
+```
+
+`.claude/playwright-config.json` sets the viewport + DPR:
+
+```json
+{ "browser": { "contextOptions": { "viewport": { "width": 1400, "height": 1050 }, "deviceScaleFactor": 2 } } }
+```
+
+### Capturing
+
+The MCP `browser_take_screenshot` hardcodes `scale: 'css'` (1×), so use **`browser_run_code_unsafe`** to capture at device scale:
+
+```js
+async (page) => {
+  await page.screenshot({ path: '/Users/sara/mintlify-docs/screenshots/<name>@2x.png', scale: 'device', type: 'png' });
+}
+```
+
+Notes: the spreadsheet grid is **canvas-based** — select a cell via the name box (`page.mouse.click` the box, type e.g. `B11`, Enter) rather than clicking the canvas. Collapse the right chat panel via the `Collapse chat panel` button for citation/provenance shots. Read the PNG back to verify, then `cp` it into `images/<name>.png`.
+
+A legacy `save-screenshot` skill (`.claude/skills/save-screenshot/`) exists for extracting `claude-in-chrome` JPEGs from the transcript — superseded by Playwright, kept only as a fallback.
