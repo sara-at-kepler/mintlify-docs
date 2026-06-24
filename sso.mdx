@@ -1,0 +1,71 @@
+---
+title: "Single sign-on"
+description: "Sign in to Kepler with your identity provider, and set up SSO for your organization."
+---
+
+Kepler supports single sign-on (SSO) so your team can access Kepler with the identity provider you already use. SSO centralizes access in your IdP, so you manage who can reach Kepler from one place and users sign in without a separate password.
+
+## Ways to sign in
+
+Individual users can sign in to [app.kepler.ai](https://app.kepler.ai) with any of these:
+
+- Email and password
+- Magic link sent to your email
+- Google
+- Microsoft
+- Enterprise SSO, when your organization has it configured
+
+The connector uses the same sign-in. When you add the [MCP connector](/mcp/overview) to an assistant, you authenticate with your Kepler account, so your organization's SSO applies there too.
+
+## How sign-in works
+
+Kepler hands authentication to a dedicated, secure sign-in service rather than handling your credentials itself. The flow is the same standard redirect you see across modern apps:
+
+<Steps>
+  <Step title="Start sign-in">
+    You open [app.kepler.ai](https://app.kepler.ai) and choose to sign in. Kepler sends you to its hosted sign-in page.
+  </Step>
+  <Step title="Verify who you are">
+    You authenticate with your chosen method: email and password, a magic link, Google, Microsoft, or your organization's SSO. For enterprise SSO, the sign-in page hands off to your identity provider, which verifies you and sends you back.
+  </Step>
+  <Step title="Return with a verified identity">
+    On success, you are redirected back to Kepler with a verified identity. Kepler establishes your session, and you never share your password with Kepler's application directly.
+  </Step>
+</Steps>
+
+The [MCP connector](/mcp/overview) follows the same flow over OAuth 2.1. The first time your assistant uses Kepler, it opens this sign-in in your browser. You authenticate exactly as above, and the assistant receives a token scoped to your account, no password and no API key. Your sign-in token is validated when it reaches Kepler and is not passed to the systems that run your research. See [data handling and privacy](/mcp/data-handling).
+
+## Enterprise SSO
+
+Kepler supports enterprise SSO over **SAML 2.0** and **OIDC**, which covers the major identity providers, including Microsoft Entra ID, Okta, and Google Workspace. Your IdP becomes the source of truth for who can sign in to Kepler.
+
+### Set up SSO for your organization
+
+SSO is configured per organization. To enable it, contact your Kepler contact or email [support@kepler.ai](mailto:support@kepler.ai). Setup is a short exchange:
+
+<Steps>
+  <Step title="Tell us your provider">
+    Let Kepler know which identity provider you use and that you want to connect over SAML or OIDC.
+  </Step>
+  <Step title="Exchange connection details">
+    You provide your IdP metadata, and Kepler provides the values your IdP needs, such as the sign-in URL and the redirect target. The exact fields depend on your provider.
+  </Step>
+  <Step title="Map users and roles">
+    Choose which users or groups in your IdP get access. Kepler organizes access by organization, with roles that control what each member can do.
+  </Step>
+  <Step title="Test and roll out">
+    Verify a test sign-in, then roll SSO out to your team. After that, users sign in to Kepler through your provider.
+  </Step>
+</Steps>
+
+<Note>
+  SSO setup is handled with the Kepler team rather than a self-serve settings page. Reach out and we will walk you through it for your provider.
+</Note>
+
+## Organizations and roles
+
+Kepler accounts belong to an organization. Within an organization, members hold roles that govern access, and organization admins manage membership from the Kepler app. SSO ties this to your IdP, so adding or removing someone there controls their access to Kepler.
+
+## Need help?
+
+For SSO setup, provisioning, or access questions, contact your Kepler contact or email [support@kepler.ai](mailto:support@kepler.ai). See [Contact us](/contact) for all channels.
