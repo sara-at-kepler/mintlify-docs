@@ -3,9 +3,17 @@
   "theme": "mint",
   "name": "Kepler",
   "colors": {
-    "primary": "#1A5A40",
-    "light": "#4A9D76",
-    "dark": "#14412F"
+    "primary": "#3d6b38",
+    "light": "#6ab060",
+    "dark": "#0B1F17"
+  },
+  "seo": {
+    "metatags": {
+      "og:site_name": "Kepler",
+      "og:type": "website",
+      "twitter:card": "summary_large_image"
+    },
+    "indexing": "all"
   },
   "favicon": "/favicon.svg",
   "fonts": {
