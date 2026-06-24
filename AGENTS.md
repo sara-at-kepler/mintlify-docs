@@ -37,6 +37,7 @@
 
 - Capture all product screenshots at a **standardized browser window size of 1366×911**, which yields a clean **1366×768** image (standard HD), so the docs stay visually consistent. Resize with `mcp__claude-in-chrome__resize_window` before capturing.
 - Always use the **test/demo account `johannes@kepler.ai`** (our shared Kepler test user) — never a personal account, since public docs must not show real user data
+- **Sidebar:** collapse the app sidebar when it's a distracting chat list that adds nothing to the shot; keep it open when it shows relevant content (e.g. sources). Move the cursor out of frame before capturing
 - Store final images under `images/` (committed) and embed them with Mintlify `<Frame>` blocks. `screenshots/` is a git-ignored staging area
 
 **Why 1366×911:** the capture is the page viewport, not the whole window. Two factors set the window size:
