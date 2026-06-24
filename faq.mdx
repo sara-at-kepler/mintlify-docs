@@ -1,0 +1,118 @@
+---
+title: "Frequently asked questions"
+description: "Common questions about Kepler and the MCP connector."
+---
+
+## About Kepler
+
+<AccordionGroup>
+  <Accordion title="What is Kepler?">
+    Kepler is an AI financial research agent. It reads primary sources, SEC filings (XBRL), earnings call transcripts, and market data, and returns answers and spreadsheet models where every figure is backed by a citation you can audit. Use it in the [Kepler app](https://app.kepler.ai) or through the [MCP connector](/mcp/overview).
+  </Accordion>
+  <Accordion title="What is the MCP connector?">
+    The connector is a remote [MCP](https://modelcontextprotocol.io) server that lets AI assistants such as Claude, ChatGPT, and Cursor run Kepler research on your behalf. You add it to your client once, and from then on your assistant can return the same citation-backed answers and workbooks you would get in the app, from inside any conversation. See the [connector overview](/mcp/overview).
+  </Accordion>
+  <Accordion title="How is this different from asking my assistant directly?">
+    Your assistant's own knowledge is dated and uncited, and web summaries are secondary sources. Kepler reads the actual filings and transcripts and links every figure to the document it came from, so results are auditable. When work has to be right, the citations are the point.
+  </Accordion>
+</AccordionGroup>
+
+## Access and setup
+
+<AccordionGroup>
+  <Accordion title="How do I get access?">
+    MCP access is rolled out per account. If your client reports that access is not enabled after you sign in, ask your Kepler contact to enable it, then sign out of Kepler and back in so your session picks up the change. See [access](/mcp/overview#access).
+  </Accordion>
+  <Accordion title="Which clients work with the connector?">
+    Any client that supports remote MCP servers over streamable HTTP, including Claude, Claude Code, ChatGPT, Cursor, and VS Code. See [connect a client](/mcp/connect) for step-by-step setup for each.
+  </Accordion>
+  <Accordion title="Do I need an API key?">
+    No. The connector signs you in with OAuth 2.1 using your Kepler account. There are no API keys to create, paste, or rotate. See [security and access](/mcp/overview#security-and-access).
+  </Accordion>
+  <Accordion title="What is the connector URL?">
+    `https://mcp.kepler.ai/api/mcp/v1`. You can also copy it from the **MCP** page in the Kepler app sidebar, which always shows the current URL and setup steps.
+  </Accordion>
+</AccordionGroup>
+
+## Coverage and data
+
+<AccordionGroup>
+  <Accordion title="What companies and data does Kepler cover?">
+    Publicly listed companies, through their SEC filings and earnings call transcripts, plus market data. The connector works with the same coverage as the Kepler app.
+  </Accordion>
+  <Accordion title="How do I check whether a company or filing is available?">
+    Ask an availability question, for example *"Use Kepler to check whether Nvidia's latest 10-K and Q3 call are available."* This calls [`lookup_company`](/mcp/tools#lookup_company) and returns instantly, with no run required. It lists the filings and transcripts Kepler has on file, with forms, dates, and fiscal periods.
+  </Accordion>
+  <Accordion title="Can Kepler research private companies?">
+    No. Kepler works from public filings and transcripts, so coverage is limited to publicly listed companies.
+  </Accordion>
+</AccordionGroup>
+
+## Running research
+
+<AccordionGroup>
+  <Accordion title="How long does a run take?">
+    Usually a few minutes, and longer for larger models, because Kepler reads primary sources rather than summarizing from memory. Your assistant holds the connection open and streams progress while it works, so you see what Kepler is reading rather than a spinner.
+  </Accordion>
+  <Accordion title="Can I follow up or refine a result?">
+    Yes. Follow-ups stay in the same conversation, so Kepler keeps full context from earlier runs. Ask for a new column, a broken-out segment, or a different period, and your assistant extends the existing run with [`continue_research`](/mcp/tools#continue_research).
+  </Accordion>
+  <Accordion title="How do I get a spreadsheet or export the data?">
+    Ask for a model and the result includes a workbook you can open in the app or download as `.xlsx`. To pull a sheet for downstream analysis, ask for it as CSV, and your assistant calls [`get_workbook_data`](/mcp/tools#get_workbook_data). Every cell traces back to a source.
+  </Accordion>
+  <Accordion title="Can I find and continue an earlier run?">
+    Yes. Ask for something like *"the Netflix model I built yesterday,"* and your assistant calls [`list_recent_runs`](/mcp/tools#list_recent_runs) to locate the conversation, then continues it. No need to start over.
+  </Accordion>
+  <Accordion title="How do I stop a run I started by mistake?">
+    Ask your assistant to cancel it. Cancelling is non-destructive: the conversation and any partial results survive, and you can re-engage it later with a follow-up. See [`cancel_run`](/mcp/tools#cancel_run).
+  </Accordion>
+</AccordionGroup>
+
+## Citations and trust
+
+<AccordionGroup>
+  <Accordion title="How do citations work?">
+    Every figure in an answer links back to the exact filing or transcript it came from. Open a citation to trace a number to its source. Results are auditable through these links, not a black box.
+  </Accordion>
+  <Accordion title="What is the sourcing report?">
+    A coverage summary included with each result. It tells you how many figures are cited and whether every number in the answer is backed by a source, so you can see at a glance how much of an answer is sourced before you rely on it. See the [sourcing report shape](/mcp/tools#sourcing-report).
+  </Accordion>
+</AccordionGroup>
+
+## Security
+
+<AccordionGroup>
+  <Accordion title="How does the connector authenticate?">
+    With OAuth 2.1, using your Kepler account. There are no API keys to manage, and your sign-in token is validated at the edge rather than passed to the systems that run your research. See [data handling and privacy](/mcp/data-handling).
+  </Accordion>
+  <Accordion title="Is my research private to me?">
+    Yes. Access is scoped to your account. Your assistant can reach only your own conversations and results, and no other user can see them. Your runs are saved to your account so you can revisit and continue them, the same as in the app.
+  </Accordion>
+  <Accordion title="Does the connector support enterprise SSO?">
+    Yes. The connector signs in with your Kepler account, so your organization's SSO applies. Kepler supports enterprise SSO over SAML 2.0 and OIDC. See [single sign-on](/sso).
+  </Accordion>
+  <Accordion title="Is Kepler compliant with security standards?">
+    Kepler is SOC 2 Type II certified, supports GDPR and CCPA, and has ISO 27001 in progress. See the [security page](https://kepler.ai/security) and [Trust Portal](https://trust.kepler.ai) for current details and documentation.
+  </Accordion>
+  <Accordion title="How is data stored, retained, and deleted?">
+    Data handling is governed by Kepler's [Privacy Policy](https://kepler.ai/privacy) and [Terms](https://kepler.ai/terms). For a security review or vendor assessment, email [support@kepler.ai](mailto:support@kepler.ai).
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="My client says MCP access isn't enabled.">
+    Access is granted per account. Ask your Kepler contact to enable it, then sign out of Kepler and back in so your session refreshes. More in [troubleshooting](/mcp/connect#troubleshooting).
+  </Accordion>
+  <Accordion title="The OAuth sign-in didn't appear.">
+    Make sure you entered the full URL including the `/api/mcp/v1` path. A bare domain won't resolve the connector. Remove and re-add the server to trigger the sign-in again.
+  </Accordion>
+  <Accordion title="A run seems stuck.">
+    Runs are meant to take a few minutes while Kepler reads sources. Your assistant waits and streams progress, and keeps waiting until a result or failure comes back. You can also continue the conversation or cancel the run.
+  </Accordion>
+</AccordionGroup>
+
+## Still need help?
+
+Reach out to your Kepler contact, or email [support@kepler.ai](mailto:support@kepler.ai).

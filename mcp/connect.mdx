@@ -41,7 +41,7 @@ You can also find this URL inside the Kepler app under **Use through MCP** in th
         When prompted, sign in with your Kepler account. Claude gets access through your own login, scoped to your conversations.
       </Step>
       <Step title="Start researching">
-        Ask a financial question or request a model — for example, *"Use Kepler to build a 3-statement model for Apple."* Runs take a few minutes and show live progress in the conversation.
+        Ask a financial question or request a model, for example *"Use Kepler to build a 3-statement model for Apple."* Runs take a few minutes and show live progress in the conversation.
       </Step>
     </Steps>
   </Tab>
@@ -109,7 +109,7 @@ You can also find this URL inside the Kepler app under **Use through MCP** in th
   </Tab>
 
   <Tab title="Other clients">
-    Any client that supports remote MCP servers over streamable HTTP can connect to Kepler. Add `https://mcp.kepler.ai/api/mcp/v1` as a remote MCP server; Kepler signs you in with standard OAuth 2.1. No API keys to manage — authentication is handled through your Kepler login.
+    Any client that supports remote MCP servers over streamable HTTP can connect to Kepler. Add `https://mcp.kepler.ai/api/mcp/v1` as a remote MCP server, and Kepler signs you in with standard OAuth 2.1. There are no API keys to manage, since authentication is handled through your Kepler login.
   </Tab>
 </Tabs>
 
@@ -121,7 +121,7 @@ Once connected, ask your assistant a quick availability question that doesn't ne
 Use Kepler to check what filings are available for Microsoft.
 ```
 
-This calls the [`lookup_company`](/mcp/tools#lookup_company) tool and returns instantly — a fast way to confirm the connector is working before kicking off a longer research run.
+This calls the [`lookup_company`](/mcp/tools#lookup_company) tool and returns instantly, a fast way to confirm the connector is working before kicking off a longer research run.
 
 ## Troubleshooting
 
@@ -133,6 +133,6 @@ This calls the [`lookup_company`](/mcp/tools#lookup_company) tool and returns in
     Make sure you entered the full URL including the `/api/mcp` path. A bare domain won't resolve the connector. Remove and re-add the server to trigger the sign-in again.
   </Accordion>
   <Accordion title="A research run seems stuck">
-    Runs are meant to take a few minutes — Kepler is reading primary sources. Your assistant waits and streams progress; if a run runs long, it keeps waiting until a result or failure comes back. You can also continue the conversation or cancel the run. See [example workflows](/mcp/examples).
+    Runs are meant to take a few minutes, because Kepler is reading primary sources. Your assistant waits and streams progress. If a run runs long, it keeps waiting until a result or failure comes back. You can also continue the conversation or cancel the run. See [example workflows](/mcp/examples).
   </Accordion>
 </AccordionGroup>

@@ -3,9 +3,9 @@ title: "Kepler MCP connector"
 description: "Bring citation-backed financial research into any MCP client."
 ---
 
-The Kepler MCP connector lets AI assistants such as Claude, ChatGPT, and Cursor run Kepler research on your behalf. Ask a financial question or request a model from inside any conversation, and your assistant calls Kepler — returning the same citation-backed answers and spreadsheet workbooks you'd get in the [Kepler app](https://app.kepler.ai), with every figure linked to its source.
+The Kepler MCP connector lets AI assistants such as Claude, ChatGPT, and Cursor run Kepler research on your behalf. Ask a financial question or request a model from inside any conversation, and your assistant calls Kepler, returning the same citation-backed answers and spreadsheet workbooks you would get in the [Kepler app](https://app.kepler.ai), with every figure linked to its source.
 
-[Model Context Protocol (MCP)](https://modelcontextprotocol.io) is an open standard for connecting AI assistants to external tools and data. Kepler runs a remote MCP server you add to your client once; after that, your assistant can reach Kepler's research tools whenever a conversation calls for them.
+[Model Context Protocol (MCP)](https://modelcontextprotocol.io) is an open standard for connecting AI assistants to external tools and data. Kepler runs a remote MCP server you add to your client once. After that, your assistant can reach Kepler's research tools whenever a conversation calls for them.
 
 <Card title="Connect your client" icon="link" href="/mcp/connect" horizontal>
   Add the connector to Claude, ChatGPT, Cursor, or any MCP client.
@@ -13,9 +13,23 @@ The Kepler MCP connector lets AI assistants such as Claude, ChatGPT, and Cursor 
 
 ## How it works
 
-When you ask your assistant something like *"Use Kepler to build a 3-statement model for Apple,"* the assistant calls a Kepler tool over the connector. Kepler reads the primary sources — SEC filings (XBRL), earnings call transcripts, and market data — runs the research, and streams progress back into your conversation. A run usually takes a few minutes; the final answer arrives with inline citations, and any workbook is one click away.
+When you ask your assistant something like *"Use Kepler to build a 3-statement model for Apple,"* the assistant calls a Kepler tool over the connector. Kepler reads the primary sources, SEC filings (XBRL), earnings call transcripts, and market data, runs the research, and streams progress back into your conversation. The final answer arrives with inline citations, and any workbook is one click away.
 
-Because runs are asynchronous, the connector splits work across a few tools: one to **start** a run, one to **wait** for the result, and others to **continue**, **list**, or **look up** data. Your assistant orchestrates these for you — see the [tools reference](/mcp/tools) for the full set.
+Runs are asynchronous, so the connector splits the work across a few tools: one to **start** a run, one to **wait** for the result, and others to **continue**, **manage**, or **look up** data. Your assistant orchestrates them for you.
+
+<Steps>
+  <Step title="Start">
+    Your assistant calls `run_financial_research` with your question. It returns a `conversation_id` right away and the run begins in the background.
+  </Step>
+  <Step title="Wait">
+    Your assistant calls `get_run_result`, which holds the connection open and streams Kepler's progress while it reads sources. A run usually finishes in a few minutes.
+  </Step>
+  <Step title="Read">
+    The result comes back with the answer, inline citations, a list of every source consulted, a sourcing report on coverage, and any workbooks Kepler produced.
+  </Step>
+</Steps>
+
+See the [tools reference](/mcp/tools) for the full set and how your assistant chains them.
 
 ## What you get
 
@@ -30,7 +44,7 @@ Because runs are asynchronous, the connector splits work across a few tools: one
     Long runs stream narration into your conversation, so you can see what Kepler is reading.
   </Card>
   <Card title="Your own data, your own login" icon="shield-check">
-    The connector signs in as you over OAuth and is scoped to your own conversations.
+    The connector signs in as you over OAuth and is scoped to your own conversations. No API keys to manage.
   </Card>
 </CardGroup>
 
@@ -40,15 +54,28 @@ Because runs are asynchronous, the connector splits work across a few tools: one
 | --- | --- |
 | **Connector URL** | `https://mcp.kepler.ai/api/mcp/v1` |
 | **Transport** | Streamable HTTP (JSON-RPC 2.0) |
-| **Authentication** | OAuth 2.1 — you sign in with your Kepler account |
-| **Access** | Enabled per account; see [access](#access) below |
+| **Authentication** | OAuth 2.1. You sign in with your Kepler account. |
+| **Capabilities** | Tools and prompts. Supporting hosts also render an interactive run panel. |
+| **Access** | Enabled per account. See [access](#access) below. |
+
+The connector implements the standard MCP handshake, so any compliant client negotiates the protocol version and discovers Kepler's tools and prompts automatically on connect. You do not configure tools by hand.
+
+## Interactive run panel
+
+In MCP hosts that support interactive panels, Kepler renders a live run view inline in your conversation: progress as Kepler reads sources, the finished answer with its citations, and any workbooks. Your assistant still writes the answer into the chat with its citation links intact, so the panel is a richer live view rather than a replacement for the text result. In clients without panel support, you get the same result as text and links.
+
+## Security and access
+
+- **You sign in as yourself.** The connector authenticates with OAuth 2.1 against your Kepler account. There are no API keys to create, paste, or rotate.
+- **Scoped to your conversations.** Your assistant sees only your own runs and results, the same data you would see in the app.
+- **Coverage matches the app.** Kepler covers publicly listed companies through their SEC filings and earnings call transcripts. The connector works with the same coverage as the Kepler app.
 
 ## Access
 
-MCP access is rolled out per account. If your client reports that access isn't enabled after you sign in, your Kepler contact may still need to turn it on for you — once granted, sign out of Kepler and back in so your session picks up the change.
+MCP access is rolled out per account. If your client reports that access is not enabled after you sign in, your Kepler contact may still need to turn it on for you. Once granted, sign out of Kepler and back in so your session picks up the change.
 
 <Note>
-  Kepler covers publicly listed companies through their SEC filings and earnings call transcripts. The connector works with the same coverage as the Kepler app.
+  Kepler covers publicly listed companies through their SEC filings and earnings call transcripts. Check coverage for a specific company instantly with [`lookup_company`](/mcp/tools#lookup_company), no run required.
 </Note>
 
 ## Next steps

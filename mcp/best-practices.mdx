@@ -1,0 +1,55 @@
+---
+title: "Best practices"
+description: "Get faster, better-sourced results from Kepler through the connector."
+---
+
+Kepler does the research for you, but how you ask shapes what you get back. These practices help you get accurate, well-sourced results on the first try.
+
+## Write a clear request
+
+<AccordionGroup>
+  <Accordion title="Name the company and the periods">
+    "Apple's last three fiscal years" beats "Apple recently." Specific periods give Kepler a clear target and make citations easier to verify. A ticker or CIK removes any ambiguity about which company you mean.
+  </Accordion>
+  <Accordion title="Say what structure you want">
+    For a model, describe the statement type, the segments, the periods, and any formatting up front. Asking for "a 3-year annual income statement with each line cited to its 10-K" is faster than building something generic and reshaping it afterward.
+  </Accordion>
+  <Accordion title="Ask for what you will check">
+    If a specific number or driver matters, name it. "What drove the change in gross margin, with each figure cited" tells Kepler where to focus and what to source.
+  </Accordion>
+</AccordionGroup>
+
+## Work efficiently
+
+<AccordionGroup>
+  <Accordion title="Check availability before a deep dive">
+    Availability questions do not need a full run. Ask "is Nvidia's latest 10-K and Q3 call available?" and Kepler answers instantly through [`lookup_company`](/mcp/tools#lookup_company). It is a quick way to confirm coverage before kicking off longer research.
+  </Accordion>
+  <Accordion title="Expect runs to take a few minutes">
+    Kepler reads primary sources rather than summarizing from memory, so a run takes a few minutes, and longer for big models. The wait is the work. Your assistant streams progress while it goes, so let it finish rather than restarting.
+  </Accordion>
+  <Accordion title="Keep the thread going">
+    Follow-ups stay in the same conversation, so Kepler keeps full context from earlier runs. Add a column, break out a segment, or compare against a peer as a follow-up. Start a new conversation only when you switch topics.
+  </Accordion>
+  <Accordion title="Pick up earlier runs">
+    You do not need to start over to revisit work. Ask for "the Netflix model from yesterday" and your assistant finds it with [`list_recent_runs`](/mcp/tools#list_recent_runs), then continues it.
+  </Accordion>
+</AccordionGroup>
+
+## Trust and verify
+
+<AccordionGroup>
+  <Accordion title="Read the sourcing report">
+    Every result includes a coverage summary that tells you whether each number is cited. When work has to be right, check it before you rely on an answer. See the [sourcing report](/mcp/tools#sourcing-report).
+  </Accordion>
+  <Accordion title="Trace a figure to its source">
+    Citations are the point of Kepler. Open the link on any figure to see the exact filing or transcript it came from, and keep the links intact when you share or paste a result.
+  </Accordion>
+  <Accordion title="Export for downstream work">
+    When you need the raw numbers, ask for a sheet as CSV and your assistant returns it through [`get_workbook_data`](/mcp/tools#get_workbook_data), or download the workbook as `.xlsx`. Every cell still traces back to a source.
+  </Accordion>
+</AccordionGroup>
+
+<Card title="See it end to end" icon="lightbulb" href="/mcp/examples" horizontal>
+  Walk through full conversations that put these practices to work.
+</Card>

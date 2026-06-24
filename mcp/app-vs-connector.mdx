@@ -1,0 +1,36 @@
+---
+title: "Web app or connector"
+description: "When to use the Kepler app, when to use the MCP connector, and how they work together."
+---
+
+Kepler runs the same research engine whichever way you reach it. The [web app](https://app.kepler.ai) and the [MCP connector](/mcp/overview) draw on the same coverage, produce the same citation-backed answers and workbooks, and run against your same account. The difference is where you work.
+
+## At a glance
+
+| | Web app | MCP connector |
+| --- | --- | --- |
+| **Where you work** | The Kepler app at [app.kepler.ai](https://app.kepler.ai) | Inside your AI assistant (Claude, ChatGPT, Cursor, and others) |
+| **Best for** | Reading results, editing workbooks, browsing sources | Research inline in a conversation, alongside your other tools |
+| **Output** | Interactive answers and workbooks you can open and edit | The same answers and workbooks, returned into your chat with links back to the app |
+| **Sign-in** | Your Kepler account | Your Kepler account over OAuth, no API keys |
+| **Setup** | None, just sign in | Add the connector once, see [connect a client](/mcp/connect) |
+
+## Use the web app when
+
+- You want the full interactive experience: open a workbook, edit it, and browse every source.
+- You are reviewing or sharing results and want to trace citations in detail.
+- You prefer a dedicated surface for research rather than a chat.
+
+## Use the connector when
+
+- You already work in an AI assistant and want research without leaving it.
+- You want Kepler's cited numbers in the same place as your other context and tools.
+- You are building an agent or workflow that should pull auditable financial data.
+
+## Using both together
+
+You do not have to choose. Runs live in your Kepler account, so a run you start through the connector shows up in the web app, and one you start in the app is reachable from the connector. Every result your assistant returns includes a link back to open the conversation or workbook in the app, so you can move between the two. Pick up an earlier run from either side and continue it with full context.
+
+<Card title="Connect a client" icon="link" href="/mcp/connect" horizontal>
+  Add the Kepler connector to your assistant and start researching inline.
+</Card>

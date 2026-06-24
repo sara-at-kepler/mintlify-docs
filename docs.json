@@ -3,46 +3,55 @@
   "theme": "mint",
   "name": "Kepler",
   "colors": {
-    "primary": "#1A5A40",
-    "light": "#4A9D76",
-    "dark": "#14412F"
+    "primary": "#3d6b38",
+    "light": "#6ab060",
+    "dark": "#0B1F17"
+  },
+  "seo": {
+    "metatags": {
+      "og:site_name": "Kepler",
+      "og:type": "website",
+      "twitter:card": "summary_large_image"
+    },
+    "indexing": "all"
   },
   "favicon": "/favicon.svg",
+  "fonts": {
+    "family": "Geist"
+  },
   "navigation": {
     "groups": [
       {
-        "group": "Get started",
+        "group": "Documentation",
         "pages": [
           "index",
           "quickstart",
-          "glossary"
+          "faq",
+          "sso",
+          "glossary",
+          "contact"
         ]
       },
       {
         "group": "MCP connector",
         "pages": [
           "mcp/overview",
+          "mcp/app-vs-connector",
           "mcp/connect",
-          "mcp/tools",
-          "mcp/prompts",
-          "mcp/examples"
+          "mcp/examples",
+          "mcp/best-practices",
+          "mcp/data-handling",
+          {
+            "group": "Reference",
+            "expanded": false,
+            "pages": [
+              "mcp/tools",
+              "mcp/prompts"
+            ]
+          }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Kepler app",
-          "href": "https://app.kepler.ai",
-          "icon": "arrow-up-right-from-square"
-        },
-        {
-          "anchor": "Website",
-          "href": "https://kepler.ai",
-          "icon": "/images/icons/kepler-mark.svg"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
