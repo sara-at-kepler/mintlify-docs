@@ -71,5 +71,3 @@ async (page) => {
 ```
 
 Notes: the spreadsheet grid is **canvas-based** — select a cell via the name box (`page.mouse.click` the box, type e.g. `B11`, Enter) rather than clicking the canvas. Collapse the right chat panel via the `Collapse chat panel` button for citation/provenance shots. Read the PNG back to verify, then `cp` it into `images/<name>.png`.
-
-A legacy `save-screenshot` skill (`.claude/skills/save-screenshot/`) exists for extracting `claude-in-chrome` JPEGs from the transcript — superseded by Playwright, kept only as a fallback.
