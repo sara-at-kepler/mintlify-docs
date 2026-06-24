@@ -10,7 +10,7 @@ Kepler is a remote MCP server. You add it to your client once using the connecto
 Use this URL wherever your client asks for a remote MCP server or custom connector:
 
 ```text
-https://mcp.kepler.ai/api/mcp
+https://mcp.kepler.ai/api/mcp/v1
 ```
 
 You can also find this URL inside the Kepler app under **MCP** in the sidebar, with a copy button and the setup steps.
@@ -35,7 +35,7 @@ You can also find this URL inside the Kepler app under **MCP** in the sidebar, w
         Go to **Settings → Connectors** and choose **Add custom connector**.
       </Step>
       <Step title="Add the connector URL">
-        Paste `https://mcp.kepler.ai/api/mcp` and confirm.
+        Paste `https://mcp.kepler.ai/api/mcp/v1` and confirm.
       </Step>
       <Step title="Sign in to Kepler">
         When prompted, sign in with your Kepler account. Claude gets access through your own login, scoped to your conversations.
@@ -50,7 +50,7 @@ You can also find this URL inside the Kepler app under **MCP** in the sidebar, w
     Add Kepler as an HTTP transport MCP server from the CLI:
 
     ```bash
-    claude mcp add --transport http kepler https://mcp.kepler.ai/api/mcp
+    claude mcp add --transport http kepler https://mcp.kepler.ai/api/mcp/v1
     ```
 
     The first time a Kepler tool is used, Claude Code walks you through the OAuth sign-in in your browser. Run `claude mcp list` to confirm the server is connected.
@@ -64,7 +64,7 @@ You can also find this URL inside the Kepler app under **MCP** in the sidebar, w
         In **Settings → Connectors**, choose to add a custom connector.
       </Step>
       <Step title="Add the connector URL">
-        Enter `https://mcp.kepler.ai/api/mcp` as the MCP server URL and confirm.
+        Enter `https://mcp.kepler.ai/api/mcp/v1` as the MCP server URL and confirm.
       </Step>
       <Step title="Sign in to Kepler">
         Complete the OAuth sign-in with your Kepler account when prompted.
@@ -82,7 +82,7 @@ You can also find this URL inside the Kepler app under **MCP** in the sidebar, w
     {
       "mcpServers": {
         "kepler": {
-          "url": "https://mcp.kepler.ai/api/mcp"
+          "url": "https://mcp.kepler.ai/api/mcp/v1"
         }
       }
     }
@@ -99,7 +99,7 @@ You can also find this URL inside the Kepler app under **MCP** in the sidebar, w
       "servers": {
         "kepler": {
           "type": "http",
-          "url": "https://mcp.kepler.ai/api/mcp"
+          "url": "https://mcp.kepler.ai/api/mcp/v1"
         }
       }
     }
@@ -109,7 +109,7 @@ You can also find this URL inside the Kepler app under **MCP** in the sidebar, w
   </Tab>
 
   <Tab title="Other clients">
-    Any client that supports remote MCP servers over streamable HTTP can connect to Kepler. Add `https://mcp.kepler.ai/api/mcp` as a remote MCP server; Kepler signs you in with standard OAuth 2.1. No API keys to manage — authentication is handled through your Kepler login.
+    Any client that supports remote MCP servers over streamable HTTP can connect to Kepler. Add `https://mcp.kepler.ai/api/mcp/v1` as a remote MCP server; Kepler signs you in with standard OAuth 2.1. No API keys to manage — authentication is handled through your Kepler login.
   </Tab>
 </Tabs>
 

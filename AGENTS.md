@@ -17,7 +17,7 @@
 
 - The product is **Kepler** (not "Pluto" — that's an internal/test environment name)
 - Say **connector** for the MCP integration, **run** for a research execution, **conversation** for an ongoing thread, **workbook** for a spreadsheet artifact
-- The production app is at `app.kepler.ai`; the MCP connector URL is `https://mcp.kepler.ai/api/mcp`
+- The production app is at `app.kepler.ai`; the MCP connector URL is `https://mcp.kepler.ai/api/mcp/v1`
 
 ## Style preferences
 
