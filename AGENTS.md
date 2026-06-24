@@ -31,7 +31,7 @@
 ## Content boundaries
 
 - Document only public, user-facing behavior — not internal infrastructure, env vars, feature-flag plumbing, or app-only tools (e.g. `read_run_state`)
-- Don't hardcode anything that's likely to drift; when in doubt, point users to the in-app **MCP** page for the live connector URL
+- Don't hardcode anything that's likely to drift; when in doubt, point users to the in-app **Use through MCP** page (account menu → **Use through MCP**) for the live connector URL
 
 ## Screenshots
 
